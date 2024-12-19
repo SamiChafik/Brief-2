@@ -19,48 +19,47 @@ public class Main {
         System.out.println("Book added successfully!\n");
     }
 
+    static void displayBook(Book book) {
+        System.out.println("title : " + book.title);
+        System.out.println("author : " + book.author);
+        System.out.println("ISBN : " + book.ISBN);
+    }
+
     static void show() {
+
+        if (books.isEmpty()) {
+            System.out.println("No books stored.");
+            return;
+        }
+
         int ch;
         Scanner sc = new Scanner(System.in);
         do {
-            System.out.print("\n1 - show all books\n2 - show a specific book\n0 - Exit\nenter your choice : ");
+            System.out.print("\n1 - show all books\n2 - show a specific book\n0 - Return\nenter your choice : ");
             ch = sc.nextInt();
 
             switch (ch) {
                 case 1:
-                    if (books.isEmpty()) {
-                        System.out.println("No books stored.");
-                        return;
-                    }
-
+                    System.out.println("\n=== list of books ===");
                     for (int i = 0; i < books.size(); i++) {
-                        System.out.println("\n=== list of books ===");
+
                         Book book = books.get(i);
 
-                        System.out.println("book " + (i + 1) + " :");
-                        System.out.println("title : " + book.title);
-                        System.out.println("author : " + book.author);
-                        System.out.println("ISBN : " + book.ISBN);
-                        if (!book.available) {
-                            System.out.println("this book is available.");
-                        } else System.out.println("this book is not available");
+                        System.out.println("\n== book " + (i + 1) + " ==");
+                        displayBook(book);
+                        if (book.available) {
+                            System.out.println("\nthis book is available.\n");
+                        } else System.out.println("\nthis book is not available.\n");
                     }
                     break;
 
                 case 2:
-                    if (books.isEmpty()) {
-                        System.out.println("No books stored.");
-                        return;
-                    }
-
                     Scanner sc2 = new Scanner(System.in);
                     System.out.println("ISBN : ");
                     int scISBN = sc2.nextInt();
                     for (Book book : books) {
                         if (book.ISBN == scISBN) {
-                            System.out.println("title : " + book.title);
-                            System.out.println("author : " + book.author);
-                            System.out.println("ISBN : " + book.ISBN);
+                            displayBook(book);
                             if (book.available) {
                                 System.out.println("this book is available.");
                             } else System.out.println("this book is not available");
@@ -83,7 +82,80 @@ public class Main {
         }while (ch < 0 || ch > 2);
     }
 
-    static void find_modify(){}
+    static void find_modify() {
+        int ch;
+        boolean exit = true;
+        while (exit) {
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Search by :\n1 - Title\n2 - Author\n3 - ISBN\n4 - Return\n=> ");
+            ch = sc.nextInt();
+
+            if (books.isEmpty()) {
+                System.out.println("No books stored.");
+                return;
+            }
+            Scanner sc2 = new Scanner(System.in);
+            boolean found;
+
+            switch (ch) {
+                case 1:
+                    System.out.print("Enter the book name : ");
+                    String title = sc2.nextLine();
+                    found = false;
+
+                    for (Book book : books) {
+                        if (book.title.equalsIgnoreCase(title)) {
+                            displayBook(book);
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        System.out.println("this book doesnt exist");
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Enter the book's Author : ");
+                    String author = sc2.nextLine();
+                    found = false;
+
+                    for (Book book : books) {
+                        if (book.author.equalsIgnoreCase(author)) {
+                            displayBook(book);
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        System.out.println("this book doesnt exist");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("Entre the book ISBN : ");
+                    int isbn = sc2.nextInt();
+                    found = false;
+
+                    for (Book book : books) {
+                        if (book.ISBN == isbn) {
+                            displayBook(book);
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        System.out.println("this book doesnt exist");
+                    }
+                    break;
+
+                case 4:
+                    exit = false;
+                    break;
+
+                default:
+                    System.out.println("invalid choice try again !");
+            }
+        }
+    }
+
     static void delete(){}
 
     public static void main(String[] args) {
