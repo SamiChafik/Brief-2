@@ -48,8 +48,8 @@ public class Main {
                         System.out.println("\n== book " + (i + 1) + " ==");
                         displayBook(book);
                         if (book.available) {
-                            System.out.println("\nthis book is available.\n");
-                        } else System.out.println("\nthis book is not available.\n");
+                            System.out.println("this book is available.\n");
+                        } else System.out.println("this book is not available.\n");
                     }
                     break;
 
@@ -91,7 +91,7 @@ public class Main {
             ch = sc.nextInt();
 
             if (books.isEmpty()) {
-                System.out.println("No books stored.");
+                System.out.print("No books stored.\n");
                 return;
             }
             Scanner sc2 = new Scanner(System.in);
@@ -156,7 +156,53 @@ public class Main {
         }
     }
 
-    static void delete(){}
+    static void delete(){
+        int ch;
+        boolean exit = true;
+
+        if (books.isEmpty()) {
+            System.out.print("No books stored.\n");
+            return;
+        }
+
+        while (exit){
+            Scanner sc = new Scanner(System.in);
+            System.out.print("\n1 - delete all books\n2 - delete a book by ISBN\n0 - Return\n=> ");
+            ch = sc.nextInt();
+
+            switch (ch){
+                case 1 :
+                    books.clear();
+                    System.out.println("All books deleted successfully !");
+                    exit = false;
+                    break;
+
+                case 2 :
+                    System.out.print("Entre the ISBN of the book you want to delete : ");
+                    int isbn = sc.nextInt();
+                    boolean found = false;
+
+                    for (int i = 0; i < books.size(); i++) {
+                        if (books.get(i).ISBN == isbn) {
+                            books.remove(i);
+                            found = true;
+                            System.out.println("book deleted successfully !");
+                        }
+                    }
+
+                    if (!found) {
+                        System.out.println("No book found with this ISBN " + isbn + ".");
+                    }
+                    break;
+
+                case 0 :
+                    exit = false;
+                        break;
+                default:
+                    System.out.println("invalid choice try again !");
+            }
+        }
+    }
 
     public static void main(String[] args) {
         int ch;
@@ -176,6 +222,7 @@ public class Main {
                     break;
                 case 4 :
                     delete();
+                    break;
                 case 0:
                     System.out.println("exiting program...");
                     break;
