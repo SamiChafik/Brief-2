@@ -48,7 +48,7 @@ public class Library {
 //        System.out.println("ISBN : " + book.ISBN);
 //    }
 
-     public void show () {
+     public void show() {
 
          if (books.isEmpty()) {
              System.out.println(color.magenta + "No books stored." + color.white);
@@ -220,7 +220,7 @@ public class Library {
          }
      }
 
-    public void delete() {
+     public void delete() {
         int ch;
         boolean exit = true;
 
@@ -269,6 +269,58 @@ public class Library {
                     System.out.println(color.red + "invalid choice try again !" + color.red);
             }
         }
+    }
+
+    public void showAvailable() {
+
+        if (books.isEmpty()) {
+            System.out.println(color.magenta + "No books stored." + color.white);
+            return;
+        }
+
+         ArrayList<Book> available = new ArrayList<>();
+         ArrayList<Book> unavailable = new ArrayList<>();
+         boolean exit = true;
+
+         while (exit){
+             System.out.println("1 - Show available books");
+             System.out.println("2 - show unavailable books");
+             System.out.println(color.green + "0 - Return");
+             System.out.print(color.blue + "=> " + color.white);
+             Scanner sc = new Scanner(System.in);
+             int ch = sc.nextInt();
+
+             for (Book book : books) {
+                 if (book.available) {
+                     available.add(book);
+                 }else unavailable.add(book);
+             }
+
+             if (ch == 1) {
+                 if (!available.isEmpty()) {
+                     for (Book book : available) {
+                         System.out.println(color.yellow + "\n=== list of available books ===" + color.white);
+                         System.out.println(book);
+                         System.out.println("\n");
+                     }
+                     available.clear();
+                 }else System.out.println(color.magenta + "no available books." + color.white);
+             }
+
+             if (ch == 2) {
+                 if (!unavailable.isEmpty()) {
+                     for (Book book : unavailable) {
+                         System.out.println(color.yellow + "\n=== list of unavailable books ===" + color.white);
+                         System.out.println(book);
+                         System.out.println("\n");
+                     }
+                     unavailable.clear();
+                 } else System.out.println(color.magenta + "This list is empty." + color.white);
+             }
+             if (ch == 0){
+                 exit = false;
+             }
+         }
     }
 
 

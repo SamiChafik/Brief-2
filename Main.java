@@ -1,5 +1,3 @@
-import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Main {
     static Library library = new Library();
@@ -26,6 +24,9 @@ public class Main {
                     break;
                 case 5 :
                     library.delete();
+                    break;
+                case 6 :
+                    library.showAvailable();
                     break;
                 case 0:
                     System.out.println("exiting program...");
