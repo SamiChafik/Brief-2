@@ -45,8 +45,8 @@ public class Book {
 
     @Override
     public String toString() {
-        return  "title : " + title + "\n" +
-                "author : " + author + "\n" +
+        return  "Title : " + title + "\n" +
+                "Author : " + author + "\n" +
                 "ISBN : " + ISBN;
     }
 }

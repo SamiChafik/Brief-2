@@ -28,8 +28,11 @@ public class Main {
                 case 6 :
                     library.showAvailable();
                     break;
+                case 7 :
+                    library.showBorrowed();
+                    break;
                 case 0:
-                    System.out.println("exiting program...");
+                    System.out.println(menu.exit);
                     exit = false;
                     break;
                 default:
